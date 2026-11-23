@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Letter for You ❤️</title>
+<link rel="stylesheet" href="letter.css">
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="letter-container">
+
+    <div class="top-label">✦ A MESSAGE FROM MY HEART ✦</div>
+
+    <h1>A Letter for You</h1>
+
+    <p class="subtitle">
+        Some feelings deserve more than ordinary words...
+    </p>
+
+    <div class="envelope" id="envelope" onclick="openLetter()">
+        <div class="envelope-back"></div>
+        <div class="letter">
+            <div class="letter-preview">A little letter for you ❤️</div>
+        </div>
+        <div class="envelope-front"></div>
+        <div class="envelope-flap"></div>
+        <div class="heart">♥</div>
+    </div>
+
+    <p class="click-text" id="clickText">
+        ✨ Tap the envelope to open your letter ✨
+    </p>
+
+    <div class="letter-content" id="letterContent">
+
+        <h2>To My Favorite Person,</h2>
+
+        <p id="typedText"></p>
+
+        <p class="signature">
+            With all my love, ❤️
+        </p>
+
+    </div>
+
+    <button class="next-btn" id="nextBtn" onclick="goNext()">
+        CONTINUE THE JOURNEY ✨
+    </button>
+
+</div>
+
+<script src="letter.js"></script>
+
+</body>
+</html>
