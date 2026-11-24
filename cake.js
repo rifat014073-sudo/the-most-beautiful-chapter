@@ -60,6 +60,7 @@ async function startMicrophone() {
 
             const volume = Math.sqrt(sum / data.length);
             instruction.textContent = "Microphone sound level: " + volume.toFixed(3);
+            instruction.textContent = "Microphone sound level: " + volume.toFixed(3);
 
             // Learn normal background sound
             if (baseline === 0) {
