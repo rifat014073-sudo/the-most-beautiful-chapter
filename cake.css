@@ -1,123 +1,233 @@
 
-const flame = document.getElementById("flame");
-const instruction = document.getElementById("instruction");
-const blowButton = document.getElementById("blowButton");
-const surprise = document.getElementById("surprise");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-let audioContext;
-let microphone;
-let animationId;
-let micStream;
-let isBlownOut = false;
+body {
+    min-height: 100vh;
+    background: radial-gradient(ellipse at center, #321044 0%, #16091f 55%, #08040d 100%);
+    color: white;
+    font-family: Georgia, serif;
+    overflow-x: hidden;
+}
 
-async function startMicrophone() {
-    if (isBlownOut) return;
+.cake-container {
+    min-height: 100vh;
+    padding: 20px 20px 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-    blowButton.disabled = true;
-    blowButton.textContent = "🎤 LISTENING...";
+.top-label {
+    color: #e5a9ff;
+    letter-spacing: 3px;
+    font-size: 11px;
+    margin-bottom: 10px;
+}
 
-    try {
-        micStream = await navigator.mediaDevices.getUserMedia({
-            audio: {
-                echoCancellation: false,
-                noiseSuppression: false,
-                autoGainControl: false
-            }
-        });
+h1 {
+    font-size: clamp(38px, 7vw, 60px);
+    font-weight: normal;
+    color: #fff0ff;
+    text-shadow: 0 0 25px #c05cff;
+    margin-bottom: 8px;
+}
 
-        audioContext = new (
-            window.AudioContext || window.webkitAudioContext
-        )();
+.subtitle {
+    color: #ddc6e9;
+    font-size: 15px;
+    line-height: 1.7;
+}
 
-        await audioContext.resume();
+.cake-area {
+    position: relative;
+    width: 340px;
+    height: 245px;
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
 
-        microphone = audioContext.createMediaStreamSource(micStream);
+.cake {
+    position: relative;
+    width: 300px;
+    height: 230px;
+    animation: cakeAppear 1.5s ease;
+}
 
-        const analyser = audioContext.createAnalyser();
-        analyser.fftSize = 2048;
-        analyser.smoothingTimeConstant = 0.2;
+.cake-top {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    width: 250px;
+    height: 65px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffb6d9, #f06cae);
+    box-shadow: 0 0 25px rgba(255, 140, 200, 0.5);
+    z-index: 3;
+}
 
-        microphone.connect(analyser);
+.cake-middle {
+    position: absolute;
+    top: 35px;
+    left: 25px;
+    width: 250px;
+    height: 95px;
+    background: linear-gradient(90deg, #a83c86, #e875b6, #a83c86);
+    border-radius: 0 0 15px 15px;
+    z-index: 2;
+}
 
-        const data = new Uint8Array(analyser.fftSize);
+.cake-bottom {
+    position: absolute;
+    top: 125px;
+    left: 0;
+    width: 300px;
+    height: 100px;
+    background: linear-gradient(90deg, #632b8c, #b56be0, #632b8c);
+    border-radius: 0 0 20px 20px;
+    z-index: 1;
+}
 
-        instruction.textContent =
-            "Microphone ready! Now blow towards your microphone 💨";
+.cake-plate {
+    position: absolute;
+    bottom: -12px;
+    left: -15px;
+    width: 330px;
+    height: 25px;
+    background: linear-gradient(#eeeeff, #aaa0c5);
+    border-radius: 50%;
+    box-shadow: 0 0 25px rgba(220, 180, 255, 0.4);
+}
 
-        blowButton.textContent = "💨 BLOW NOW!";
+.candle {
+    position: absolute;
+    z-index: 5;
+    bottom: 225px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 13px;
+    height: 65px;
+    background: repeating-linear-gradient(
+        45deg,
+        #fff0f7,
+        #fff0f7 7px,
+        #e99acb 7px,
+        #e99acb 13px
+    );
+    border-radius: 4px;
+}
 
-        let blowFrames = 0;
+.flame {
+    position: absolute;
+    z-index: 6;
+    bottom: 286px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 35px;
+    filter: drop-shadow(0 0 12px orange);
+    animation: flicker 0.7s infinite alternate;
+    cursor: pointer;
+}
 
-        function detectBlow() {
-            if (isBlownOut) return;
+.flame.off {
+    display: none;
+}
 
-            analyser.getByteTimeDomainData(data);
+#instruction {
+    color: #f4d9ff;
+    font-size: 15px;
+    margin-top: 0;
+    line-height: 1.6;
+}
 
-            let sum = 0;
+button {
+    margin-top: 10px;
+    padding: 14px 30px;
+    border: 1px solid #e5a9ff;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #a34de0, #6b2ca0);
+    color: white;
+    font-size: 13px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(190, 100, 255, 0.4);
+    transition: 0.3s;
+}
 
-            for (let i = 0; i < data.length; i++) {
-                const value = (data[i] - 128) / 128;
-                sum += value * value;
-            }
+button:hover {
+    transform: scale(1.06);
+    box-shadow: 0 0 30px #c05cff;
+}
 
-            const volume = Math.sqrt(sum / data.length);
+button:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
 
-            // Sensitive blow detection
-            if (volume > 0.025) {
-                blowFrames++;
-            } else {
-                blowFrames = Math.max(0, blowFrames - 1);
-            }
+.hint {
+    max-width: 320px;
+    color: #bda2ce;
+    font-size: 11px;
+    line-height: 1.6;
+    margin-top: 8px;
+}
 
-            if (blowFrames >= 8) {
-                blowOut();
-                return;
-            }
+.hidden {
+    display: none;
+}
 
-            animationId = requestAnimationFrame(detectBlow);
-        }
+#surprise {
+    margin-top: 22px;
+    animation: cakeAppear 1s ease;
+}
 
-        detectBlow();
+#surprise h2 {
+    color: #ffc5e6;
+    font-size: clamp(25px, 5vw, 38px);
+    font-weight: normal;
+    text-shadow: 0 0 20px #e56bc0;
+    margin-bottom: 12px;
+}
 
-    } catch (error) {
-        console.error(error);
+#surprise p {
+    color: #ead7f2;
+    line-height: 1.8;
+}
 
-        instruction.textContent =
-            "Microphone unavailable. Tap the flame instead! ❤️";
-
-        blowButton.disabled = false;
-        blowButton.textContent = "🎤 TRY AGAIN";
+@keyframes flicker {
+    from {
+        transform: translateX(-50%) scale(1);
+    }
+    to {
+        transform: translateX(-50%) scale(1.15);
     }
 }
 
-function blowOut() {
-    if (isBlownOut) return;
-
-    isBlownOut = true;
-
-    cancelAnimationFrame(animationId);
-
-    if (micStream) {
-        micStream.getTracks().forEach(track => track.stop());
+@keyframes cakeAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
     }
-
-    if (audioContext && audioContext.state !== "closed") {
-        audioContext.close();
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
-
-    flame.classList.add("off");
-
-    instruction.textContent =
-        "Your wish is on its way to the stars... ✨";
-
-    blowButton.style.display = "none";
-
-    surprise.classList.remove("hidden");
 }
 
-function goNext() {
-    window.location.href = "page6.html";
-}
+@media (max-width: 400px) {
+    .cake-area {
+        transform: scale(0.82);
+        margin-top: 0;
+        margin-bottom: -35px;
+    }
 
-flame.addEventListener("click", blowOut);
-blowButton.addEventListener("click", startMicrophone);
+    .cake-container {
+        padding-top: 15px;
+    }
+}
