@@ -15,7 +15,7 @@ body {
 
 .cake-container {
     min-height: 100vh;
-    padding: 20px 20px 30px;
+    padding: 38px 20px 25px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -26,7 +26,7 @@ body {
     color: #e5a9ff;
     letter-spacing: 3px;
     font-size: 11px;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
 }
 
 h1 {
@@ -34,7 +34,7 @@ h1 {
     font-weight: normal;
     color: #fff0ff;
     text-shadow: 0 0 25px #c05cff;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .subtitle {
@@ -46,8 +46,8 @@ h1 {
 .cake-area {
     position: relative;
     width: 340px;
-    height: 245px;
-    margin-top: 5px;
+    height: 275px;
+    margin-top: 12px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -147,7 +147,7 @@ h1 {
 }
 
 button {
-    margin-top: 10px;
+    margin-top: 12px;
     padding: 14px 30px;
     border: 1px solid #e5a9ff;
     border-radius: 30px;
@@ -223,11 +223,11 @@ button:disabled {
 @media (max-width: 400px) {
     .cake-area {
         transform: scale(0.82);
-        margin-top: 0;
+        margin-top: 5px;
         margin-bottom: -35px;
     }
 
     .cake-container {
-        padding-top: 15px;
+        padding-top: 25px;
     }
 }
