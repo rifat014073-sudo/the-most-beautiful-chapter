@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Little Memories ❤️</title>
+<link rel="stylesheet" href="gallery.css">
+</head>
+
+<body>
+
+<div class="gallery-container">
+
+    <div class="top-label">✦ A COLLECTION OF BEAUTIFUL MOMENTS ✦</div>
+
+    <h1>Our Little Memories</h1>
+
+    <p class="subtitle">
+        Every picture holds a memory,<br>
+        and every memory reminds me of you. ❤️
+    </p>
+
+    <div class="gallery">
+
+        <div class="photo-card" onclick="openPhoto(this)">
+            <img src="https://placehold.co/600x800/24102f/ffffff?text=Memory+1" alt="Memory 1">
+            <p>One Beautiful Moment ❤️</p>
+        </div>
+
+        <div class="photo-card" onclick="openPhoto(this)">
+            <img src="https://placehold.co/600x800/32153d/ffffff?text=Memory+2" alt="Memory 2">
+            <p>A Moment to Remember ✨</p>
+        </div>
+
+        <div class="photo-card" onclick="openPhoto(this)">
+            <img src="https://placehold.co/600x800/40204b/ffffff?text=Memory+3" alt="Memory 3">
+            <p>My Favorite Smile 💗</p>
+        </div>
+
+        <div class="photo-card" onclick="openPhoto(this)">
+            <img src="https://placehold.co/600x800/51265b/ffffff?text=Memory+4" alt="Memory 4">
+            <p>Forever in My Heart 🌙</p>
+        </div>
+
+    </div>
+
+    <p class="bottom-text">
+        SOME MOMENTS BECOME MEMORIES. SOME MEMORIES BECOME FOREVER.
+    </p>
+
+    <button onclick="goNext()">MAKE A WISH ✨</button>
+
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closePhoto()">
+    <span class="close">&times;</span>
+    <img id="lightboxImage" src="" alt="Selected memory">
+</div>
+
+<script src="gallery.js"></script>
+
+</body>
+</html>
