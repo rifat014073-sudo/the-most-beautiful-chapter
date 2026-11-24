@@ -59,6 +59,7 @@ async function startMicrophone() {
             }
 
             const volume = Math.sqrt(sum / data.length);
+            console.log("Sound level:", volume);
             instruction.textContent = "Microphone sound level: " + volume.toFixed(3);
             instruction.textContent = "Microphone sound level: " + volume.toFixed(3);
 
