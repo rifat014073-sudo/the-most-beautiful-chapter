@@ -8,7 +8,6 @@ let audioContext;
 let micStream;
 let animationId;
 let isBlownOut = false;
-let baseline = 0;
 let blowFrames = 0;
 
 async function startMicrophone() {
@@ -19,7 +18,11 @@ async function startMicrophone() {
 
     try {
         micStream = await navigator.mediaDevices.getUserMedia({
-            audio: true
+            audio: {
+                echoCancellation: false,
+                noiseSuppression: false,
+                autoGainControl: false
+            }
         });
 
         audioContext = new (
@@ -34,7 +37,7 @@ async function startMicrophone() {
         const analyser = audioContext.createAnalyser();
 
         analyser.fftSize = 2048;
-        analyser.smoothingTimeConstant = 0.1;
+        analyser.smoothingTimeConstant = 0;
 
         microphone.connect(analyser);
 
@@ -59,26 +62,17 @@ async function startMicrophone() {
             }
 
             const volume = Math.sqrt(sum / data.length);
-            console.log("Sound level:", volume);
-            instruction.textContent = "Microphone sound level: " + volume.toFixed(3);
-            instruction.textContent = "Microphone sound level: " + volume.toFixed(3);
 
-            // Learn normal background sound
-            if (baseline === 0) {
-                baseline = volume;
-            } else {
-                baseline = baseline * 0.98 + volume * 0.02;
-            }
+            instruction.textContent =
+                "Sound level: " + volume.toFixed(3) + " 💨";
 
-           const threshold = Math.max(0.025, baseline * 2);
-
-            if (volume > threshold) {
+            if (volume > 0.025) {
                 blowFrames++;
             } else {
-                blowFrames = Math.max(0, blowFrames - 1);
+                blowFrames = 0;
             }
 
-            if (blowFrames >= 12) {
+            if (blowFrames >= 8) {
                 blowOut();
                 return;
             }
