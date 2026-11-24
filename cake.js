@@ -5,24 +5,21 @@ const blowButton = document.getElementById("blowButton");
 const surprise = document.getElementById("surprise");
 
 let audioContext;
-let microphone;
-let animationId;
 let micStream;
+let animationId;
 let isBlownOut = false;
+let baseline = 0;
+let blowFrames = 0;
 
 async function startMicrophone() {
     if (isBlownOut) return;
 
     blowButton.disabled = true;
-    blowButton.textContent = "🎤 LISTENING...";
+    blowButton.textContent = "🎤 CONNECTING...";
 
     try {
         micStream = await navigator.mediaDevices.getUserMedia({
-            audio: {
-                echoCancellation: false,
-                noiseSuppression: false,
-                autoGainControl: false
-            }
+            audio: true
         });
 
         audioContext = new (
@@ -31,22 +28,23 @@ async function startMicrophone() {
 
         await audioContext.resume();
 
-        microphone = audioContext.createMediaStreamSource(micStream);
+        const microphone =
+            audioContext.createMediaStreamSource(micStream);
 
         const analyser = audioContext.createAnalyser();
+
         analyser.fftSize = 2048;
-        analyser.smoothingTimeConstant = 0.2;
+        analyser.smoothingTimeConstant = 0.1;
 
         microphone.connect(analyser);
 
         const data = new Uint8Array(analyser.fftSize);
 
         instruction.textContent =
-            "Microphone ready! Now blow towards your microphone 💨";
+            "Microphone ready! Blow towards your microphone 💨";
 
         blowButton.textContent = "💨 BLOW NOW!";
-
-        let blowFrames = 0;
+        blowButton.disabled = false;
 
         function detectBlow() {
             if (isBlownOut) return;
@@ -62,14 +60,22 @@ async function startMicrophone() {
 
             const volume = Math.sqrt(sum / data.length);
 
-            // Sensitive blow detection
-            if (volume > 0.025) {
+            // Learn normal background sound
+            if (baseline === 0) {
+                baseline = volume;
+            } else {
+                baseline = baseline * 0.98 + volume * 0.02;
+            }
+
+            const threshold = Math.max(0.035, baseline * 2.5);
+
+            if (volume > threshold) {
                 blowFrames++;
             } else {
                 blowFrames = Math.max(0, blowFrames - 1);
             }
 
-            if (blowFrames >= 8) {
+            if (blowFrames >= 12) {
                 blowOut();
                 return;
             }
@@ -83,7 +89,7 @@ async function startMicrophone() {
         console.error(error);
 
         instruction.textContent =
-            "Microphone unavailable. Tap the flame instead! ❤️";
+            "Microphone unavailable. Tap the flame instead ❤️";
 
         blowButton.disabled = false;
         blowButton.textContent = "🎤 TRY AGAIN";
