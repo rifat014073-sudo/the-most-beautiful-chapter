@@ -15,7 +15,7 @@ body {
 
 .cake-container {
     min-height: 100vh;
-    padding: 55px 20px;
+    padding: 25px 20px 35px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -24,30 +24,30 @@ body {
 
 .top-label {
     color: #e5a9ff;
-    letter-spacing: 4px;
-    font-size: 12px;
-    margin-bottom: 25px;
+    letter-spacing: 3px;
+    font-size: 11px;
+    margin-bottom: 12px;
 }
 
 h1 {
-    font-size: clamp(40px, 7vw, 68px);
+    font-size: clamp(38px, 7vw, 60px);
     font-weight: normal;
     color: #fff0ff;
     text-shadow: 0 0 25px #c05cff;
-    margin-bottom: 18px;
+    margin-bottom: 10px;
 }
 
 .subtitle {
     color: #ddc6e9;
-    font-size: 17px;
-    line-height: 1.9;
+    font-size: 15px;
+    line-height: 1.7;
 }
 
 .cake-area {
     position: relative;
     width: 340px;
-    height: 360px;
-    margin-top: 35px;
+    height: 285px;
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -141,14 +141,14 @@ h1 {
 
 #instruction {
     color: #f4d9ff;
-    font-size: 16px;
-    margin-top: 25px;
-    line-height: 1.8;
+    font-size: 15px;
+    margin-top: 5px;
+    line-height: 1.6;
 }
 
 button {
-    margin-top: 25px;
-    padding: 15px 32px;
+    margin-top: 12px;
+    padding: 14px 30px;
     border: 1px solid #e5a9ff;
     border-radius: 30px;
     background: linear-gradient(135deg, #a34de0, #6b2ca0);
@@ -165,12 +165,17 @@ button:hover {
     box-shadow: 0 0 30px #c05cff;
 }
 
+button:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
 .hint {
     max-width: 320px;
     color: #bda2ce;
-    font-size: 12px;
-    line-height: 1.8;
-    margin-top: 15px;
+    font-size: 11px;
+    line-height: 1.6;
+    margin-top: 10px;
 }
 
 .hidden {
@@ -178,7 +183,7 @@ button:hover {
 }
 
 #surprise {
-    margin-top: 35px;
+    margin-top: 25px;
     animation: cakeAppear 1s ease;
 }
 
@@ -187,12 +192,12 @@ button:hover {
     font-size: clamp(25px, 5vw, 38px);
     font-weight: normal;
     text-shadow: 0 0 20px #e56bc0;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 #surprise p {
     color: #ead7f2;
-    line-height: 1.9;
+    line-height: 1.8;
 }
 
 @keyframes flicker {
@@ -217,8 +222,12 @@ button:hover {
 
 @media (max-width: 400px) {
     .cake-area {
-        transform: scale(0.85);
-        margin-top: 10px;
+        transform: scale(0.82);
+        margin-top: 0;
         margin-bottom: -35px;
+    }
+
+    .cake-container {
+        padding-top: 20px;
     }
 }
