@@ -70,7 +70,7 @@ async function startMicrophone() {
                 baseline = baseline * 0.98 + volume * 0.02;
             }
 
-            const threshold = Math.max(0.035, baseline * 2.5);
+           const threshold = Math.max(0.025, baseline * 2);
 
             if (volume > threshold) {
                 blowFrames++;
