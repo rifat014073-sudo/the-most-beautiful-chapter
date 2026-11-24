@@ -15,7 +15,7 @@ body {
 
 .cake-container {
     min-height: 100vh;
-    padding: 38px 20px 25px;
+    padding: 30px 20px 30px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -26,7 +26,7 @@ body {
     color: #e5a9ff;
     letter-spacing: 3px;
     font-size: 11px;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 }
 
 h1 {
@@ -40,14 +40,14 @@ h1 {
 .subtitle {
     color: #ddc6e9;
     font-size: 15px;
-    line-height: 1.7;
+    line-height: 1.8;
 }
 
 .cake-area {
     position: relative;
     width: 340px;
-    height: 275px;
-    margin-top: 12px;
+    height: 335px;
+    margin-top: 22px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -105,10 +105,12 @@ h1 {
     box-shadow: 0 0 25px rgba(220, 180, 255, 0.4);
 }
 
+/* Candle positioning */
+
 .candle {
     position: absolute;
     z-index: 5;
-    bottom: 225px;
+    bottom: 230px;
     left: 50%;
     transform: translateX(-50%);
     width: 13px;
@@ -122,6 +124,8 @@ h1 {
     );
     border-radius: 4px;
 }
+
+/* Flame positioning */
 
 .flame {
     position: absolute;
@@ -139,15 +143,17 @@ h1 {
     display: none;
 }
 
+/* Instruction below cake */
+
 #instruction {
     color: #f4d9ff;
     font-size: 15px;
-    margin-top: 0;
-    line-height: 1.6;
+    margin-top: 18px;
+    line-height: 1.7;
 }
 
 button {
-    margin-top: 12px;
+    margin-top: 14px;
     padding: 14px 30px;
     border: 1px solid #e5a9ff;
     border-radius: 30px;
@@ -174,8 +180,8 @@ button:disabled {
     max-width: 320px;
     color: #bda2ce;
     font-size: 11px;
-    line-height: 1.6;
-    margin-top: 8px;
+    line-height: 1.7;
+    margin-top: 10px;
 }
 
 .hidden {
@@ -183,7 +189,7 @@ button:disabled {
 }
 
 #surprise {
-    margin-top: 22px;
+    margin-top: 25px;
     animation: cakeAppear 1s ease;
 }
 
@@ -221,13 +227,13 @@ button:disabled {
 }
 
 @media (max-width: 400px) {
-    .cake-area {
-        transform: scale(0.82);
-        margin-top: 5px;
-        margin-bottom: -35px;
+    .cake-container {
+        padding-top: 22px;
     }
 
-    .cake-container {
-        padding-top: 25px;
+    .cake-area {
+        transform: scale(0.82);
+        margin-top: 15px;
+        margin-bottom: -45px;
     }
 }
