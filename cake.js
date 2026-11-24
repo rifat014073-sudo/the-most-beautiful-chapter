@@ -7,6 +7,7 @@ const surprise = document.getElementById("surprise");
 let audioContext;
 let microphone;
 let animationId;
+let micStream;
 let isBlownOut = false;
 
 async function startMicrophone() {
@@ -16,8 +17,12 @@ async function startMicrophone() {
     blowButton.textContent = "🎤 LISTENING...";
 
     try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-            audio: true
+        micStream = await navigator.mediaDevices.getUserMedia({
+            audio: {
+                echoCancellation: false,
+                noiseSuppression: false,
+                autoGainControl: false
+            }
         });
 
         audioContext = new (
@@ -26,22 +31,21 @@ async function startMicrophone() {
 
         await audioContext.resume();
 
-        microphone = audioContext.createMediaStreamSource(stream);
+        microphone = audioContext.createMediaStreamSource(micStream);
 
         const analyser = audioContext.createAnalyser();
         analyser.fftSize = 2048;
+        analyser.smoothingTimeConstant = 0.2;
 
         microphone.connect(analyser);
 
         const data = new Uint8Array(analyser.fftSize);
 
         instruction.textContent =
-            "Now gently blow towards your microphone! 💨";
+            "Microphone ready! Now blow towards your microphone 💨";
 
-        blowButton.textContent = "🎤 BLOW NOW!";
+        blowButton.textContent = "💨 BLOW NOW!";
 
-        let noiseLevel = 0;
-        let calibrationFrames = 0;
         let blowFrames = 0;
 
         function detectBlow() {
@@ -58,33 +62,16 @@ async function startMicrophone() {
 
             const volume = Math.sqrt(sum / data.length);
 
-            // First, measure normal background sound.
-            if (calibrationFrames < 30) {
-                noiseLevel += volume;
-                calibrationFrames++;
-
-                if (calibrationFrames === 30) {
-                    noiseLevel /= 30;
-                    instruction.textContent =
-                        "Ready! Blow towards the microphone! 💨";
-                }
+            // Sensitive blow detection
+            if (volume > 0.025) {
+                blowFrames++;
             } else {
-                const threshold = Math.max(
-                    0.035,
-                    noiseLevel * 2.5
-                );
+                blowFrames = Math.max(0, blowFrames - 1);
+            }
 
-                if (volume > threshold) {
-                    blowFrames++;
-                } else {
-                    blowFrames = 0;
-                }
-
-                // Detect a sustained blowing sound.
-                if (blowFrames >= 5) {
-                    blowOut();
-                    return;
-                }
+            if (blowFrames >= 8) {
+                blowOut();
+                return;
             }
 
             animationId = requestAnimationFrame(detectBlow);
@@ -96,7 +83,7 @@ async function startMicrophone() {
         console.error(error);
 
         instruction.textContent =
-            "Microphone unavailable. Tap the flame to blow it out! ❤️";
+            "Microphone unavailable. Tap the flame instead! ❤️";
 
         blowButton.disabled = false;
         blowButton.textContent = "🎤 TRY AGAIN";
@@ -110,10 +97,8 @@ function blowOut() {
 
     cancelAnimationFrame(animationId);
 
-    if (microphone) {
-        microphone.mediaStream.getTracks().forEach(track => {
-            track.stop();
-        });
+    if (micStream) {
+        micStream.getTracks().forEach(track => track.stop());
     }
 
     if (audioContext && audioContext.state !== "closed") {
@@ -134,8 +119,5 @@ function goNext() {
     window.location.href = "page6.html";
 }
 
-// Tap the flame as an alternative.
 flame.addEventListener("click", blowOut);
-
-// Start microphone after user interaction.
 blowButton.addEventListener("click", startMicrophone);
