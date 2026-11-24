@@ -21,29 +21,40 @@
         and every memory reminds me of you. ❤️
     </p>
 
-    <div class="gallery">
+   
+<div class="gallery">
 
-        <div class="photo-card" onclick="openPhoto(this)">
-            <img src="https://placehold.co/600x800/24102f/ffffff?text=Memory+1" alt="Memory 1">
-            <p>One Beautiful Moment ❤️</p>
-        </div>
-
-        <div class="photo-card" onclick="openPhoto(this)">
-            <img src="https://placehold.co/600x800/32153d/ffffff?text=Memory+2" alt="Memory 2">
-            <p>A Moment to Remember ✨</p>
-        </div>
-
-        <div class="photo-card" onclick="openPhoto(this)">
-            <img src="https://placehold.co/600x800/40204b/ffffff?text=Memory+3" alt="Memory 3">
-            <p>My Favorite Smile 💗</p>
-        </div>
-
-        <div class="photo-card" onclick="openPhoto(this)">
-            <img src="https://placehold.co/600x800/51265b/ffffff?text=Memory+4" alt="Memory 4">
-            <p>Forever in My Heart 🌙</p>
-        </div>
-
+    <div class="photo-card" onclick="openPhoto(this)">
+        <img src="https://placehold.co/600x800/24102f/ffffff?text=Memory+1" alt="Memory 1">
+        <p>One Beautiful Moment ❤️</p>
     </div>
+
+    <div class="photo-card" onclick="openPhoto(this)">
+        <img src="https://placehold.co/600x800/32153d/ffffff?text=Memory+2" alt="Memory 2">
+        <p>A Moment to Remember ✨</p>
+    </div>
+
+    <div class="photo-card" onclick="openPhoto(this)">
+        <img src="https://placehold.co/600x800/40204b/ffffff?text=Memory+3" alt="Memory 3">
+        <p>My Favorite Smile 💗</p>
+    </div>
+
+    <div class="photo-card" onclick="openPhoto(this)">
+        <img src="https://placehold.co/600x800/51265b/ffffff?text=Memory+4" alt="Memory 4">
+        <p>Forever in My Heart 🌙</p>
+    </div>
+
+    <div class="photo-card" onclick="openPhoto(this)">
+        <img src="https://placehold.co/600x800/382044/ffffff?text=Memory+5" alt="Memory 5">
+        <p>Our Sweetest Memories 💕</p>
+    </div>
+
+    <div class="photo-card" onclick="openPhoto(this)">
+        <img src="https://placehold.co/600x800/482654/ffffff?text=Memory+6" alt="Memory 6">
+        <p>Always Special to Me ❤️</p>
+    </div>
+
+</div>
 
     <p class="bottom-text">
         SOME MOMENTS BECOME MEMORIES. SOME MEMORIES BECOME FOREVER.
