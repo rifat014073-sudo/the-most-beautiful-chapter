@@ -2,9 +2,6 @@
 const canvas = document.getElementById("stars");
 const ctx = canvas.getContext("2d");
 
-const loveButton = document.getElementById("loveButton");
-const answer = document.getElementById("answer");
-
 let stars = [];
 
 function resizeCanvas() {
@@ -17,7 +14,7 @@ function resizeCanvas() {
         stars.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
-            radius: Math.random() * 1.8,
+            radius: Math.random() * 1.8 + 0.3,
             opacity: Math.random(),
             speed: Math.random() * 0.015 + 0.003
         });
@@ -36,9 +33,8 @@ function animateStars() {
 
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-
         ctx.fillStyle = `rgba(255, 225, 255, ${star.opacity})`;
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = 12;
         ctx.shadowColor = "#e6aaff";
         ctx.fill();
     });
@@ -50,6 +46,7 @@ function createHeart() {
     const heart = document.createElement("div");
 
     heart.className = "floating-heart";
+
     heart.textContent = ["❤️", "💗", "💕", "✨"][
         Math.floor(Math.random() * 4)
     ];
@@ -59,23 +56,12 @@ function createHeart() {
 
     document.body.appendChild(heart);
 
-    setTimeout(() => {
-        heart.remove();
-    }, 5000);
+    setTimeout(() => heart.remove(), 6000);
 }
-
-loveButton.addEventListener("click", () => {
-    loveButton.style.display = "none";
-    answer.classList.remove("hidden");
-
-    for (let i = 0; i < 35; i++) {
-        setTimeout(createHeart, i * 120);
-    }
-});
 
 window.addEventListener("resize", resizeCanvas);
 
 resizeCanvas();
 animateStars();
 
-setInterval(createHeart, 900);
+setInterval(createHeart, 1000);
