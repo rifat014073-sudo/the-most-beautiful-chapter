@@ -1,0 +1,224 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: radial-gradient(ellipse at center, #321044 0%, #16091f 55%, #08040d 100%);
+    color: white;
+    font-family: Georgia, serif;
+    overflow-x: hidden;
+}
+
+.cake-container {
+    min-height: 100vh;
+    padding: 55px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top-label {
+    color: #e5a9ff;
+    letter-spacing: 4px;
+    font-size: 12px;
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-size: clamp(40px, 7vw, 68px);
+    font-weight: normal;
+    color: #fff0ff;
+    text-shadow: 0 0 25px #c05cff;
+    margin-bottom: 18px;
+}
+
+.subtitle {
+    color: #ddc6e9;
+    font-size: 17px;
+    line-height: 1.9;
+}
+
+.cake-area {
+    position: relative;
+    width: 340px;
+    height: 360px;
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.cake {
+    position: relative;
+    width: 300px;
+    height: 230px;
+    animation: cakeAppear 1.5s ease;
+}
+
+.cake-top {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    width: 250px;
+    height: 65px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffb6d9, #f06cae);
+    box-shadow: 0 0 25px rgba(255, 140, 200, 0.5);
+    z-index: 3;
+}
+
+.cake-middle {
+    position: absolute;
+    top: 35px;
+    left: 25px;
+    width: 250px;
+    height: 95px;
+    background: linear-gradient(90deg, #a83c86, #e875b6, #a83c86);
+    border-radius: 0 0 15px 15px;
+    z-index: 2;
+}
+
+.cake-bottom {
+    position: absolute;
+    top: 125px;
+    left: 0;
+    width: 300px;
+    height: 100px;
+    background: linear-gradient(90deg, #632b8c, #b56be0, #632b8c);
+    border-radius: 0 0 20px 20px;
+    z-index: 1;
+}
+
+.cake-plate {
+    position: absolute;
+    bottom: -12px;
+    left: -15px;
+    width: 330px;
+    height: 25px;
+    background: linear-gradient(#eeeeff, #aaa0c5);
+    border-radius: 50%;
+    box-shadow: 0 0 25px rgba(220, 180, 255, 0.4);
+}
+
+.candle {
+    position: absolute;
+    z-index: 5;
+    bottom: 225px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 13px;
+    height: 65px;
+    background: repeating-linear-gradient(
+        45deg,
+        #fff0f7,
+        #fff0f7 7px,
+        #e99acb 7px,
+        #e99acb 13px
+    );
+    border-radius: 4px;
+}
+
+.flame {
+    position: absolute;
+    z-index: 6;
+    bottom: 286px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 35px;
+    filter: drop-shadow(0 0 12px orange);
+    animation: flicker 0.7s infinite alternate;
+    cursor: pointer;
+}
+
+.flame.off {
+    display: none;
+}
+
+#instruction {
+    color: #f4d9ff;
+    font-size: 16px;
+    margin-top: 25px;
+    line-height: 1.8;
+}
+
+button {
+    margin-top: 25px;
+    padding: 15px 32px;
+    border: 1px solid #e5a9ff;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #a34de0, #6b2ca0);
+    color: white;
+    font-size: 13px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(190, 100, 255, 0.4);
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.06);
+    box-shadow: 0 0 30px #c05cff;
+}
+
+.hint {
+    max-width: 320px;
+    color: #bda2ce;
+    font-size: 12px;
+    line-height: 1.8;
+    margin-top: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+#surprise {
+    margin-top: 35px;
+    animation: cakeAppear 1s ease;
+}
+
+#surprise h2 {
+    color: #ffc5e6;
+    font-size: clamp(25px, 5vw, 38px);
+    font-weight: normal;
+    text-shadow: 0 0 20px #e56bc0;
+    margin-bottom: 15px;
+}
+
+#surprise p {
+    color: #ead7f2;
+    line-height: 1.9;
+}
+
+@keyframes flicker {
+    from {
+        transform: translateX(-50%) scale(1);
+    }
+    to {
+        transform: translateX(-50%) scale(1.15);
+    }
+}
+
+@keyframes cakeAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 400px) {
+    .cake-area {
+        transform: scale(0.85);
+        margin-top: 10px;
+        margin-bottom: -35px;
+    }
+}
