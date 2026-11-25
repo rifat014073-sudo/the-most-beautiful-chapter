@@ -243,7 +243,46 @@ footer {
     .container {
         padding: 30px 16px;
     }
+#loveButton {
+    background: linear-gradient(135deg, #ff5ca8, #a855f7);
+    color: white;
+    border: none;
+    padding: 15px 32px;
+    border-radius: 35px;
+    font-size: 17px;
+    font-family: Georgia, serif;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(255, 75, 186, 0.6);
+    transition: 0.3s ease;
+    animation: heartbeat 1.5s infinite;
+}
 
+#loveButton:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 35px rgba(255, 75, 186, 0.9);
+}
+
+.hidden {
+    display: none;
+}
+
+#loveMessage {
+    margin-top: 25px;
+    animation: fadeUp 1.5s ease both;
+}
+
+#loveMessage p {
+    color: #f2d9ef;
+    line-height: 1.9;
+    margin: 15px auto;
+    max-width: 600px;
+}
+
+#loveMessage .forever-line {
+    color: #ffb8e8;
+    font-size: 18px;
+    text-shadow: 0 0 12px #ff4bba;
+}
     .love-message p {
         font-size: 14px;
     }
