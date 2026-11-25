@@ -90,3 +90,10 @@ function startBackgroundMusic() {
 
 document.addEventListener("click", startBackgroundMusic);
 document.addEventListener("touchstart", startBackgroundMusic);
+function showLoveMessage() {
+    const message = document.getElementById("loveMessage");
+    const button = document.getElementById("loveButton");
+
+    message.classList.remove("hidden");
+    button.style.display = "none";
+}
