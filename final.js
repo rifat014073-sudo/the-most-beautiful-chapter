@@ -65,3 +65,28 @@ resizeCanvas();
 animateStars();
 
 setInterval(createHeart, 1000);
+// Start background music after the first interaction
+const musicFrame = document.getElementById("musicFrame");
+
+let musicStarted = false;
+
+function startBackgroundMusic() {
+    if (musicStarted || !musicFrame) return;
+
+    musicStarted = true;
+
+    musicFrame.contentWindow.postMessage(
+        JSON.stringify({
+            event: "command",
+            func: "playVideo",
+            args: []
+        }),
+        "*"
+    );
+
+    document.removeEventListener("click", startBackgroundMusic);
+    document.removeEventListener("touchstart", startBackgroundMusic);
+}
+
+document.addEventListener("click", startBackgroundMusic);
+document.addEventListener("touchstart", startBackgroundMusic);
