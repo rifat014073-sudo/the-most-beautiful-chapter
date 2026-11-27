@@ -1,14 +1,10 @@
-
 import * as THREE from "https://cdn.skypack.dev/three@0.132.2";
 import { OrbitControls } from "https://cdn.skypack.dev/three@0.132.2/examples/jsm/controls/OrbitControls.js";
 
-// Canvas
 const canvas = document.querySelector("canvas.webgl");
 
-// Scene
 const scene = new THREE.Scene();
 
-// Galaxy Parameters
 const parameters = {};
 
 parameters.count = 100000;
@@ -21,156 +17,136 @@ parameters.randomnessPower = 4;
 parameters.insideColor = "#ff6030";
 parameters.outsideColor = "#0949f0";
 
-let material = null;
-let geometry = null;
-let points = null;
+const positions = new Float32Array(parameters.count * 3);
+const colors = new Float32Array(parameters.count * 3);
 
-// Generate Galaxy
-const generateGalaxy = () => {
+const colorInside = new THREE.Color(parameters.insideColor);
+const colorOutside = new THREE.Color(parameters.outsideColor);
 
-    if (points !== null) {
-        geometry.dispose();
-        material.dispose();
-        scene.remove(points);
-    }
+for (let i = 0; i < parameters.count; i++) {
+    const i3 = i * 3;
 
-    material = new THREE.PointsMaterial({
-        size: parameters.size,
-        sizeAttenuation: true,
-        depthWrite: false,
-        blending: THREE.AdditiveBlending,
-        vertexColors: true
-    });
-
-    geometry = new THREE.BufferGeometry();
-
-    const positions = new Float32Array(parameters.count * 3);
-    const colors = new Float32Array(parameters.count * 3);
-
-    const colorInside = new THREE.Color(parameters.insideColor);
-    const colorOutside = new THREE.Color(parameters.outsideColor);
-
-    for (let i = 0; i < parameters.count; i++) {
-
-        const i3 = i * 3;
-
-        const radius = Math.pow(
-            Math.random() * parameters.randomness,
-            Math.random() * parameters.radius
-        );
-
-        const spinAngle = radius * parameters.spin;
-
-        const branchAngle =
-            ((i % parameters.branches) / parameters.branches) *
-            Math.PI * 2;
-
-        const negPos = [1, -1];
-
-        const randomX =
-            Math.pow(Math.random(), parameters.randomnessPower) *
-            negPos[Math.floor(Math.random() * negPos.length)];
-
-        const randomY =
-            Math.pow(Math.random(), parameters.randomnessPower) *
-            negPos[Math.floor(Math.random() * negPos.length)];
-
-        const randomZ =
-            Math.pow(Math.random(), parameters.randomnessPower) *
-            negPos[Math.floor(Math.random() * negPos.length)];
-
-        positions[i3] =
-            Math.cos(branchAngle + spinAngle) * radius + randomX;
-
-        positions[i3 + 1] = randomY;
-
-        positions[i3 + 2] =
-            Math.sin(branchAngle + spinAngle) * radius + randomZ;
-
-        const mixedColor = colorInside.clone();
-
-        mixedColor.lerp(
-            colorOutside,
-            Math.random() * radius / parameters.radius
-        );
-
-        colors[i3] = mixedColor.r;
-        colors[i3 + 1] = mixedColor.g;
-        colors[i3 + 2] = mixedColor.b;
-    }
-
-    geometry.setAttribute(
-        "position",
-        new THREE.BufferAttribute(positions, 3)
+    const radius = Math.pow(
+        Math.random() * parameters.randomness,
+        Math.random() * parameters.radius
     );
 
-    geometry.setAttribute(
-        "color",
-        new THREE.BufferAttribute(colors, 3)
+    const spinAngle = radius * parameters.spin;
+
+    const branchAngle =
+        ((i % parameters.branches) / parameters.branches) *
+        Math.PI * 2;
+
+    const negPos = [1, -1];
+
+    const randomX =
+        Math.pow(Math.random(), parameters.randomnessPower) *
+        negPos[Math.floor(Math.random() * 2)];
+
+    const randomY =
+        Math.pow(Math.random(), parameters.randomnessPower) *
+        negPos[Math.floor(Math.random() * 2)];
+
+    const randomZ =
+        Math.pow(Math.random(), parameters.randomnessPower) *
+        negPos[Math.floor(Math.random() * 2)];
+
+    positions[i3] =
+        Math.cos(branchAngle + spinAngle) * radius + randomX;
+
+    positions[i3 + 1] = randomY;
+
+    positions[i3 + 2] =
+        Math.sin(branchAngle + spinAngle) * radius + randomZ;
+
+    const mixedColor = colorInside.clone();
+
+    mixedColor.lerp(
+        colorOutside,
+        Math.random() * radius / parameters.radius
     );
 
-    points = new THREE.Points(geometry, material);
-    scene.add(points);
-};
+    colors[i3] = mixedColor.r;
+    colors[i3 + 1] = mixedColor.g;
+    colors[i3 + 2] = mixedColor.b;
+}
 
-generateGalaxy();
+const geometry = new THREE.BufferGeometry();
 
-// Sizes
-const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight
-};
-
-// Camera
-const camera = new THREE.PerspectiveCamera(
-    75,
-    sizes.width / sizes.height,
-    0.1,
-    100
+geometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(positions, 3)
 );
 
-camera.position.x = 3;
-camera.position.y = 3;
-camera.position.z = 3;
+geometry.setAttribute(
+    "color",
+    new THREE.BufferAttribute(colors, 3)
+);
+
+const material = new THREE.PointsMaterial({
+    size: parameters.size,
+    sizeAttenuation: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    vertexColors: true
+});
+
+const points = new THREE.Points(geometry, material);
+scene.add(points);
+
+const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    200
+);
 
 scene.add(camera);
 
-// Controls
 const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true;
+controls.enabled = false;
 
-// Renderer
 const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
+    canvas: canvas,
+    antialias: true
 });
 
-renderer.setSize(sizes.width, sizes.height);
+renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-// Resize
 window.addEventListener("resize", () => {
-
-    sizes.width = window.innerWidth;
-    sizes.height = window.innerHeight;
-
-    camera.aspect = sizes.width / sizes.height;
+    camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 
-    renderer.setSize(sizes.width, sizes.height);
+    renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
 
-// Animation
 const clock = new THREE.Clock();
 
 const tick = () => {
-
     const elapsedTime = clock.getElapsedTime();
 
-    controls.update();
+    // Galaxy slowly rotates
+    points.rotation.y = elapsedTime * 0.04;
 
-    camera.position.x = Math.cos(elapsedTime * 0.05);
-    camera.position.z = Math.sin(elapsedTime * 0.05);
+    // Automatic zoom out during the final message
+    const zoomProgress = THREE.MathUtils.clamp(
+        (elapsedTime - 12) / 6,
+        0,
+        1
+    );
+
+    const distance = THREE.MathUtils.lerp(
+        7,
+        58,
+        THREE.MathUtils.smoothstep(zoomProgress, 0, 1)
+    );
+
+    camera.position.x = Math.cos(elapsedTime * 0.05) * distance;
+    camera.position.y = distance * 0.35;
+    camera.position.z = Math.sin(elapsedTime * 0.05) * distance;
+
     camera.lookAt(0, 0, 0);
 
     renderer.render(scene, camera);
@@ -179,3 +155,12 @@ const tick = () => {
 };
 
 tick();
+
+// Enable Next button after all messages
+setTimeout(() => {
+    const nextButton = document.getElementById("nextButton");
+
+    if (nextButton) {
+        nextButton.style.pointerEvents = "auto";
+    }
+}, 18000);
