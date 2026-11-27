@@ -7,7 +7,7 @@ const scene = new THREE.Scene();
 
 const parameters = {
     count: 100000,
-    size: 0.025,
+    size: 0.015,
     radius: 2.15,
     branches: 3,
     spin: 3,
@@ -32,6 +32,7 @@ for (let i = 0; i < parameters.count; i++) {
     );
 
     const spinAngle = radius * parameters.spin;
+
     const branchAngle =
         ((i % parameters.branches) / parameters.branches) *
         Math.PI * 2;
@@ -94,7 +95,7 @@ const points = new THREE.Points(geometry, material);
 scene.add(points);
 
 const camera = new THREE.PerspectiveCamera(
-    100,
+    85,
     window.innerWidth / window.innerHeight,
     0.01,
     200
@@ -123,40 +124,70 @@ window.addEventListener("resize", () => {
 
 const clock = new THREE.Clock();
 
+// Camera's starting position at 12 seconds
+const startCamera = new THREE.Vector3(
+    Math.cos(12 * 0.05) * 5,
+    1,
+    Math.sin(12 * 0.05) * 5
+);
+
+// Direction from outside toward and through the galaxy
+const flyDirection = startCamera.clone().negate().normalize();
+
 const tick = () => {
     const elapsedTime = clock.getElapsedTime();
 
+    // Galaxy keeps rotating
     points.rotation.y = elapsedTime * 0.04;
 
-    // Original galaxy view at the beginning
-    const zoomProgress = THREE.MathUtils.clamp(
-        (elapsedTime - 12) / 3,
-        0,
-        1
-    );
+    if (elapsedTime < 12) {
+        // Original view before the journey
+        const distance = 5;
 
-    const smoothZoom = THREE.MathUtils.smoothstep(
-        zoomProgress,
-        0,
-        1
-    );
+        camera.position.x =
+            Math.cos(elapsedTime * 0.05) * distance;
 
-    // Camera travels deep through the galaxy center
-    const distance = THREE.MathUtils.lerp(
-        5,
-        0.15,
-        smoothZoom
-    );
+        camera.position.y = distance * 0.2;
 
-    camera.position.x =
-        Math.cos(elapsedTime * 0.05) * distance;
+        camera.position.z =
+            Math.sin(elapsedTime * 0.05) * distance;
 
-    camera.position.y = distance * 0.2;
+        camera.lookAt(0, 0, 0);
 
-    camera.position.z =
-        Math.sin(elapsedTime * 0.05) * distance;
+    } else {
+        // Start flying through the galaxy at 12 seconds
+        const progress = THREE.MathUtils.clamp(
+            (elapsedTime - 12) / 3,
+            0,
+            1
+        );
 
-    camera.lookAt(0, 0, 0);
+        const smoothProgress = THREE.MathUtils.smoothstep(
+            progress,
+            0,
+            1
+        );
+
+        // Pass through the center and continue inside
+        const travelDistance = THREE.MathUtils.lerp(
+            0,
+            7.2,
+            smoothProgress
+        );
+
+        camera.position.copy(startCamera).addScaledVector(
+            flyDirection,
+            travelDistance
+        );
+
+        // Look forward in the direction of travel
+        const lookTarget = camera.position.clone().addScaledVector(
+            flyDirection,
+            10
+        );
+
+        camera.lookAt(lookTarget);
+    }
 
     renderer.render(scene, camera);
 
