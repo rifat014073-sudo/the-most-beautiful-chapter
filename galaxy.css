@@ -1,11 +1,11 @@
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -14,8 +14,7 @@ html, body {
 
 .webgl {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     outline: none;
@@ -37,8 +36,9 @@ html, body {
 .message {
     position: absolute;
     width: 100%;
+    padding: 15px;
     opacity: 0;
-    animation: showMessage 18s infinite;
+    animation: showMessage 6s ease forwards;
 }
 
 .message h1 {
@@ -75,16 +75,50 @@ html, body {
 }
 
 @keyframes showMessage {
-    0%, 5% {
+    0% {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(25px);
     }
-    12%, 28% {
+
+    15% {
         opacity: 1;
         transform: translateY(0);
     }
-    35%, 100% {
+
+    80% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
         opacity: 0;
-        transform: translateY(-15px);
+        transform: translateY(-20px);
+    }
+}
+
+#nextButton {
+    position: fixed;
+    z-index: 5;
+    bottom: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 14px 32px;
+    border: 1px solid #c99aff;
+    border-radius: 40px;
+    background: rgba(100, 40, 160, 0.25);
+    color: #fff;
+    font-size: 15px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    box-shadow: 0 0 20px #9b5de5;
+    opacity: 0;
+    pointer-events: none;
+    animation: showNext 1s ease 18s forwards;
+}
+
+@keyframes showNext {
+    to {
+        opacity: 1;
+        pointer-events: auto;
     }
 }
