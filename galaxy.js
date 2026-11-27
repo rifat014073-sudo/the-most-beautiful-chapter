@@ -129,19 +129,18 @@ const tick = () => {
 
     // Galaxy slowly rotates
     points.rotation.y = elapsedTime * 0.04;
+// Automatic smooth zoom out from the beginning
+const zoomProgress = THREE.MathUtils.clamp(
+    elapsedTime / 18,
+    0,
+    1
+);
 
-    // Automatic zoom out during the final message
-    const zoomProgress = THREE.MathUtils.clamp(
-        (elapsedTime - 12) / 6,
-        0,
-        1
-    );
-
-    const distance = THREE.MathUtils.lerp(
-        7,
-        58,
-        THREE.MathUtils.smoothstep(zoomProgress, 0, 1)
-    );
+const distance = THREE.MathUtils.lerp(
+    5,
+    75,
+    THREE.MathUtils.smoothstep(zoomProgress, 0, 1)
+);
 
     camera.position.x = Math.cos(elapsedTime * 0.05) * distance;
     camera.position.y = distance * 0.35;
