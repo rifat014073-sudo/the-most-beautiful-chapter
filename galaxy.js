@@ -7,7 +7,7 @@ const scene = new THREE.Scene();
 
 const parameters = {
     count: 100000,
-    size: 0.015,
+    size: 0.025,
     radius: 2.15,
     branches: 3,
     spin: 3,
@@ -32,24 +32,23 @@ for (let i = 0; i < parameters.count; i++) {
     );
 
     const spinAngle = radius * parameters.spin;
-
     const branchAngle =
         ((i % parameters.branches) / parameters.branches) *
         Math.PI * 2;
 
-    const negPos = [1, -1];
+    const signs = [1, -1];
 
     const randomX =
         Math.pow(Math.random(), parameters.randomnessPower) *
-        negPos[Math.floor(Math.random() * 2)];
+        signs[Math.floor(Math.random() * 2)];
 
     const randomY =
         Math.pow(Math.random(), parameters.randomnessPower) *
-        negPos[Math.floor(Math.random() * 2)];
+        signs[Math.floor(Math.random() * 2)];
 
     const randomZ =
         Math.pow(Math.random(), parameters.randomnessPower) *
-        negPos[Math.floor(Math.random() * 2)];
+        signs[Math.floor(Math.random() * 2)];
 
     positions[i3] =
         Math.cos(branchAngle + spinAngle) * radius + randomX;
@@ -95,9 +94,9 @@ const points = new THREE.Points(geometry, material);
 scene.add(points);
 
 const camera = new THREE.PerspectiveCamera(
-    85,
+    100,
     window.innerWidth / window.innerHeight,
-    0.1,
+    0.01,
     200
 );
 
@@ -127,32 +126,35 @@ const clock = new THREE.Clock();
 const tick = () => {
     const elapsedTime = clock.getElapsedTime();
 
-    // Galaxy rotation
     points.rotation.y = elapsedTime * 0.04;
 
-    // Keep the original view for the first two messages
+    // Original galaxy view at the beginning
     const zoomProgress = THREE.MathUtils.clamp(
-        (elapsedTime - 12) / 2,
+        (elapsedTime - 12) / 3,
         0,
         1
     );
 
-    // Move the camera into the galaxy
     const smoothZoom = THREE.MathUtils.smoothstep(
         zoomProgress,
         0,
         1
     );
 
+    // Camera travels deep through the galaxy center
     const distance = THREE.MathUtils.lerp(
         5,
-        2.2,
+        0.15,
         smoothZoom
     );
 
-    camera.position.x = Math.cos(elapsedTime * 0.05) * distance;
-    camera.position.y = distance * 0.35;
-    camera.position.z = Math.sin(elapsedTime * 0.05) * distance;
+    camera.position.x =
+        Math.cos(elapsedTime * 0.05) * distance;
+
+    camera.position.y = distance * 0.2;
+
+    camera.position.z =
+        Math.sin(elapsedTime * 0.05) * distance;
 
     camera.lookAt(0, 0, 0);
 
@@ -163,7 +165,7 @@ const tick = () => {
 
 tick();
 
-// Keep the Next button working after all messages
+// Enable Next Page after the messages
 setTimeout(() => {
     const nextButton = document.getElementById("nextButton");
 
