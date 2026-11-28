@@ -13,10 +13,6 @@ body {
     background: #02020b;
 }
 
-body {
-    isolation: isolate;
-}
-
 .webgl {
     position: fixed;
     inset: 0;
@@ -37,22 +33,36 @@ body {
     text-align: center;
     pointer-events: none;
     padding: 20px;
-    background: none !important;
+    background: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
-.message {
+.love-message .message,
+.love-message .message * {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.love-message .message {
     position: absolute;
     width: 100%;
     padding: 15px;
     opacity: 0;
-    background: none !important;
-    background-color: transparent !important;
-    border: 0 !important;
-    outline: 0 !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
     animation: showMessage 6s ease forwards;
+}
+
+.love-message .message::before,
+.love-message .message::after {
+    content: none !important;
+    display: none !important;
 }
 
 .message h1 {
@@ -60,9 +70,8 @@ body {
     font-size: clamp(28px, 5vw, 48px);
     font-weight: normal;
     color: #FFB6D9 !important;
-    text-shadow: 0 0 12px #FF69B4;
+    text-shadow: 0 0 12px #FF69B4 !important;
     margin-bottom: 25px;
-    background: none !important;
 }
 
 .message p {
@@ -70,8 +79,7 @@ body {
     font-size: clamp(15px, 2.5vw, 22px);
     line-height: 1.9;
     color: #FFFFFF !important;
-    text-shadow: 0 0 8px rgba(255, 182, 217, 0.5);
-    background: none !important;
+    text-shadow: 0 0 8px rgba(255, 182, 217, 0.5) !important;
 }
 
 .message.second {
@@ -87,8 +95,7 @@ body {
     font-weight: normal;
     font-size: clamp(27px, 5vw, 46px);
     color: #FFB6D9 !important;
-    text-shadow: 0 0 15px #FF69B4;
-    background: none !important;
+    text-shadow: 0 0 15px #FF69B4 !important;
 }
 
 @keyframes showMessage {
