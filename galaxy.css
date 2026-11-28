@@ -39,11 +39,11 @@ body {
     width: min(90%, 850px);
     padding: 24px;
     border-radius: 20px;
-    background: rgba(5, 3, 20, 0.48);
-    border: 1px solid rgba(216, 180, 255, 0.15);
-    box-shadow: 0 0 35px rgba(105, 55, 180, 0.12);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    background: rgba(3, 8, 25, 0.72);
+    border: 1px solid rgba(102, 204, 255, 0.25);
+    box-shadow: 0 0 35px rgba(0, 102, 255, 0.18);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
     opacity: 0;
     animation: showMessage 6s ease forwards;
 }
@@ -52,9 +52,10 @@ body {
     font-family: Georgia, serif;
     font-size: clamp(28px, 5vw, 48px);
     font-weight: normal;
-    color: #D8B4FF;
-    text-shadow: 0 0 12px rgba(168, 121, 255, 0.9),
-                 0 0 28px rgba(168, 121, 255, 0.45);
+    color: #66CCFF;
+    text-shadow:
+        0 0 12px #008CFF,
+        0 0 28px rgba(0, 140, 255, 0.8);
     margin-bottom: 25px;
 }
 
@@ -62,8 +63,10 @@ body {
     font-family: Georgia, serif;
     font-size: clamp(15px, 2.5vw, 22px);
     line-height: 1.9;
-    color: #FFE4A3;
-    text-shadow: 0 0 10px rgba(255, 190, 100, 0.35);
+    color: #B8E5FF;
+    text-shadow:
+        0 0 8px rgba(0, 102, 204, 0.8),
+        0 0 15px rgba(0, 102, 255, 0.4);
 }
 
 .message.second {
@@ -78,9 +81,10 @@ body {
     font-family: Georgia, serif;
     font-weight: normal;
     font-size: clamp(27px, 5vw, 46px);
-    color: #D8B4FF;
-    text-shadow: 0 0 15px rgba(189, 133, 255, 0.9),
-                 0 0 30px rgba(189, 133, 255, 0.5);
+    color: #66CCFF;
+    text-shadow:
+        0 0 15px #008CFF,
+        0 0 30px rgba(0, 140, 255, 0.8);
 }
 
 @keyframes showMessage {
@@ -112,14 +116,14 @@ body {
     left: 50%;
     transform: translateX(-50%);
     padding: 14px 32px;
-    border: 1px solid #c99aff;
+    border: 1px solid #66CCFF;
     border-radius: 40px;
-    background: rgba(100, 40, 160, 0.25);
-    color: #fff;
+    background: rgba(0, 70, 150, 0.4);
+    color: #FFFFFF;
     font-size: 15px;
     letter-spacing: 2px;
     cursor: pointer;
-    box-shadow: 0 0 20px #9b5de5;
+    box-shadow: 0 0 20px #008CFF;
     opacity: 0;
     pointer-events: none;
     animation: showNext 1s ease 18s forwards;
