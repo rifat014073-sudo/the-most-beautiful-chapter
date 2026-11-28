@@ -13,6 +13,10 @@ body {
     background: #02020b;
 }
 
+body {
+    isolation: isolate;
+}
+
 .webgl {
     position: fixed;
     inset: 0;
@@ -20,6 +24,7 @@ body {
     height: 100%;
     outline: none;
     z-index: 0;
+    display: block;
 }
 
 .love-message {
@@ -32,7 +37,7 @@ body {
     text-align: center;
     pointer-events: none;
     padding: 20px;
-    background: transparent !important;
+    background: none !important;
 }
 
 .message {
@@ -40,10 +45,10 @@ body {
     width: 100%;
     padding: 15px;
     opacity: 0;
-    background: transparent !important;
+    background: none !important;
     background-color: transparent !important;
-    border: none !important;
-    outline: none !important;
+    border: 0 !important;
+    outline: 0 !important;
     box-shadow: none !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
@@ -57,7 +62,7 @@ body {
     color: #FFB6D9 !important;
     text-shadow: 0 0 12px #FF69B4;
     margin-bottom: 25px;
-    background: transparent !important;
+    background: none !important;
 }
 
 .message p {
@@ -66,7 +71,7 @@ body {
     line-height: 1.9;
     color: #FFFFFF !important;
     text-shadow: 0 0 8px rgba(255, 182, 217, 0.5);
-    background: transparent !important;
+    background: none !important;
 }
 
 .message.second {
@@ -83,7 +88,7 @@ body {
     font-size: clamp(27px, 5vw, 46px);
     color: #FFB6D9 !important;
     text-shadow: 0 0 15px #FF69B4;
-    background: transparent !important;
+    background: none !important;
 }
 
 @keyframes showMessage {
