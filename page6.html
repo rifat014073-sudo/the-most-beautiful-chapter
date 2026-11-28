@@ -1,106 +1,63 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forever Special ❤️</title>
+    <title>Our Little Universe — Page 3 ❤️</title>
     <link rel="stylesheet" href="final.css">
 </head>
-<body>
+<body class="page3-standalone-body">
+
+    <!-- Top Serial Page Navigation -->
+    <nav id="topNav">
+        <a href="page1.html" class="nav-btn">Page 1</a>
+        <a href="page2.html" class="nav-btn">Page 2</a>
+        <a href="page3.html" class="nav-btn active">Page 3</a>
+    </nav>
 
     <canvas id="stars"></canvas>
 
-    <main class="container">
-
-        <section class="opening">
-            <p class="top-label">✦ OUR LITTLE UNIVERSE ✦</p>
-
-            <h1>And this is not the end...</h1>
-
-            <p class="subtitle">
-                Some stories are too beautiful to end. ❤️
-            </p>
-        </section>
-
-        <section class="galaxy-heart">
-            <div class="heart">❤️</div>
-            <div class="orbit orbit-one"></div>
-            <div class="orbit orbit-two"></div>
-
-            <p>YOU & ME · FOREVER</p>
-        </section>
-
-        <section class="love-message">
-            <h2>My Forever Person</h2>
-
-            <p>
-                If I could choose one person to share all my
-                tomorrows with, I would choose you.
-            </p>
-
-            <p>
-                Thank you for being a beautiful part of my life.
-                I hope I can keep making you smile, today and always.
-            </p>
-        </section>
-
-        <section class="final-question">
-
-            <h2>
-                In every universe,<br>
-                I would still choose you. ❤️
-            </h2>
-
-            <p>And now, I have one last thing to say...</p>
-
-            <h3>Do you love me too? 🥺</h3>
-
-            
-<div class="final-answer">
-
-    <button id="loveButton" onclick="showLoveMessage()">
-        I LOVE YOU TOO ❤️
-    </button>
-
-    <div id="loveMessage" class="hidden">
-        <p>You just made my whole universe brighter! ✨</p>
-
-        <p class="extra-love">
-            I wish I could hold your hand right now,
-            look into your eyes, and tell you how much
-            you mean to me. ❤️
-        </p>
-
-        <p class="forever-line">
-            You will always be my favourite person. 💗
-        </p>
+    <!-- 1. The Pre-Celebration Card: Beautifully Centered with "I LOVE YOU" Button (0 Drag) -->
+    <div id="page3IntroCard" class="page3-proposal-card">
+        <p class="top-label">✦ OUR LITTLE UNIVERSE ✦</p>
+        <div class="heart-pulse-icon">💖</div>
+        <h2>In every universe,<br>I would still choose you. ❤️</h2>
+        <p class="question-subtitle">And now, I have one last thing to say...</p>
+        <h3>Do you love me too? 🥺</h3>
+        <button id="loveButton" class="love-btn-glow" onclick="showLoveMessage(event)">
+            I LOVE YOU TOO 💖
+        </button>
     </div>
 
-</div>
-           
-
-
-
-        </section>
-
+    <!-- 2. The Celebration Container: Appears on Click, Positioned Matching the Screenshot -->
+    <main id="page3Celebration" class="container celebration-container hidden">
+        <div id="loveMessage" class="hidden">
+            <p>You just made my whole universe brighter! ✨</p>
+            <p class="extra-love">
+                I wish I could hold your hand right now,
+                look into your eyes, and tell you how much
+                you mean to me. ❤️
+            </p>
+            <p class="forever-line">
+                You will always be my favourite person. 💗
+            </p>
+        </div>
         <footer>
             MADE WITH ALL MY LOVE ❤️
         </footer>
-
     </main>
 
     <script src="final.js"></script>
     <div id="music-player">
-    <iframe
-        id="musicFrame"
-        src="https://www.youtube.com/embed/frEZClu44WE?enablejsapi=1&autoplay=1&loop=1&playlist=frEZClu44WE"
-        allow="autoplay; encrypted-media"
-        title="Background Music"
-        width="1"
-        height="1">
-    </iframe>
-</div>
+        <iframe
+            id="musicFrame"
+            src="https://www.youtube.com/embed/frEZClu44WE?enablejsapi=1&autoplay=1&loop=1&playlist=frEZClu44WE"
+            allow="autoplay; encrypted-media"
+            title="Background Music"
+            width="1"
+            height="1">
+        </iframe>
+    </div>
 
 </body>
 </html>
