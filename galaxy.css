@@ -37,13 +37,13 @@ body {
 .message {
     position: absolute;
     width: min(90%, 850px);
-    padding: 24px;
-    border-radius: 20px;
-    background: rgba(0, 0, 0, 0.85);
-    border: 1px solid rgba(255, 182, 217, 0.35);
-    box-shadow: 0 0 35px rgba(255, 105, 180, 0.2);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    padding: 30px;
+    border-radius: 22px;
+    background: rgba(0, 0, 0, 0.94);
+    border: 1px solid rgba(255, 182, 217, 0.6);
+    box-shadow: 0 0 35px rgba(255, 105, 180, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     opacity: 0;
     animation: showMessage 6s ease forwards;
 }
@@ -52,10 +52,8 @@ body {
     font-family: Georgia, serif;
     font-size: clamp(28px, 5vw, 48px);
     font-weight: normal;
-    color: #FFB6D9;
-    text-shadow:
-        0 0 12px #FF69B4,
-        0 0 25px rgba(255, 105, 180, 0.7);
+    color: #FFB6D9 !important;
+    text-shadow: 0 0 12px #FF69B4;
     margin-bottom: 25px;
 }
 
@@ -63,8 +61,8 @@ body {
     font-family: Georgia, serif;
     font-size: clamp(15px, 2.5vw, 22px);
     line-height: 1.9;
-    color: #FFD6E8;
-    text-shadow: 0 0 8px rgba(255, 105, 180, 0.4);
+    color: #FFFFFF !important;
+    text-shadow: none;
 }
 
 .message.second {
@@ -79,10 +77,8 @@ body {
     font-family: Georgia, serif;
     font-weight: normal;
     font-size: clamp(27px, 5vw, 46px);
-    color: #FFB6D9;
-    text-shadow:
-        0 0 15px #FF69B4,
-        0 0 30px rgba(255, 105, 180, 0.7);
+    color: #FFB6D9 !important;
+    text-shadow: 0 0 15px #FF69B4;
 }
 
 @keyframes showMessage {
