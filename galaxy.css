@@ -28,41 +28,30 @@ body {
     inset: 0;
     z-index: 2;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     text-align: center;
     pointer-events: none;
-    padding: 20px;
+    padding: 8vh 20px 20px;
     background: transparent !important;
-    background-image: none !important;
-    border: none !important;
-    box-shadow: none !important;
 }
 
-.love-message .message,
-.love-message .message * {
+.message {
+    position: absolute;
+    top: 8vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    padding: 15px;
+    opacity: 0;
     background: transparent !important;
     background-color: transparent !important;
-    background-image: none !important;
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-}
-
-.love-message .message {
-    position: absolute;
-    width: 100%;
-    padding: 15px;
-    opacity: 0;
     animation: showMessage 6s ease forwards;
-}
-
-.love-message .message::before,
-.love-message .message::after {
-    content: none !important;
-    display: none !important;
 }
 
 .message h1 {
@@ -70,8 +59,9 @@ body {
     font-size: clamp(28px, 5vw, 48px);
     font-weight: normal;
     color: #FFB6D9 !important;
-    text-shadow: 0 0 12px #FF69B4 !important;
+    text-shadow: 0 0 12px #FF69B4;
     margin-bottom: 25px;
+    background: transparent !important;
 }
 
 .message p {
@@ -79,7 +69,8 @@ body {
     font-size: clamp(15px, 2.5vw, 22px);
     line-height: 1.9;
     color: #FFFFFF !important;
-    text-shadow: 0 0 8px rgba(255, 182, 217, 0.5) !important;
+    text-shadow: 0 0 8px rgba(255, 182, 217, 0.5);
+    background: transparent !important;
 }
 
 .message.second {
@@ -95,28 +86,29 @@ body {
     font-weight: normal;
     font-size: clamp(27px, 5vw, 46px);
     color: #FFB6D9 !important;
-    text-shadow: 0 0 15px #FF69B4 !important;
+    text-shadow: 0 0 15px #FF69B4;
+    background: transparent !important;
 }
 
 @keyframes showMessage {
     0% {
         opacity: 0;
-        transform: translateY(25px);
+        transform: translate(-50%, 25px);
     }
 
     15% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate(-50%, 0);
     }
 
     80% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate(-50%, 0);
     }
 
     100% {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translate(-50%, -20px);
     }
 }
 
